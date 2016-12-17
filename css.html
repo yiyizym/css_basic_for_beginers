@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>CSS 入门</title>
+
+		<meta name="description" content="CSS 入门">
+		<meta name="author" content="jude Zhu">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>CSS 入门</h1>
+					<h3></h3>
+					<p>
+						<small>By <a href="http://judes.me">jude.Zhu</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h2>CSS是什么？</h2>
+					
+					<div>
+						<p class="fragment"  style="text-align: left;">层叠样式表</p>
+						<p class="fragment"  style="text-align: left;">决定<span style="color: #ff0099;">哪个元素</span>采用<span style="color: #ff9900;">何种样式</span>的层叠样式表</p>
+					</div>
+				</section>
+
+				<section>
+					<h2>怎样定位元素？</h2>
+					<p class="fragment" style="text-align: left;">利用HTML元素标签、属性</p>
+					<pre class="fragment"><code data-trim contenteditable>
+&lt;div&gt;
+&lt;a id="a_id" class="a_class" href="google.com"&gt;白色&lt;/a&gt;
+&lt;/div&gt;
+					</code></pre>
+					<pre class="fragment"><code data-trim contenteditable>
+
+//html元素标签
+a { color: white; }
+div a {color: white}
+//属性 id
+#a_id { color: white; }
+//属性 class
+.a_class { color: white; }
+//属性 href 及其他属性
+[href="google.com"] { color: white; }
+[id="a_id"] { color: white; }
+[class="a_class"] { color: white; }
+//组合
+a#a_id { color: white; }
+a.a_class { color: white; }
+...
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>怎样写样式?</h2>
+					<section>
+						<p class="fragment" style="text-align: left;">样式分四大类</p>
+						<ol>
+							<li class="fragment">位置</li>
+							<li class="fragment">盒子模型</li>
+							<li class="fragment">排版</li>
+							<li class="fragment">视觉效果（色彩、动画）</li>
+						</ol>
+						
+					</section>
+
+					<section>
+						<p style="text-align: left;">按分类顺序写</p>
+						<pre class="fragment"><code data-trim contenteditable>
+.declaration-order {
+  /* Positioning */
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+
+  /* Box model */
+  display: block;
+  box-sizing: border-box;
+  width: 100px;
+  height: 100px;
+  padding: 10px;
+  border: 1px solid #e5e5e5;
+  border-radius: 3px;
+  margin: 10px;
+  float: right;
+  overflow: hidden;
+
+  /* Typographic */
+  font: normal 13px "Helvetica Neue", sans-serif;
+  line-height: 1.5;
+  text-align: center;
+
+  /* Visual */
+  background-color: #f5f5f5;
+  color: #fff;
+  opacity: .8;
+
+  /* Other */
+  cursor: pointer;
+}
+						</code></pre>
+						
+					</section>
+				</section>
+				<section>
+					<h2>发生样式冲突？</h2>
+					<section>
+						<pre class="fragment"><code data-trim contenteditable>
+&lt;div&gt;
+&lt;a id="a_id" class="a_class" href="google.com"&gt;红色&lt;/a&gt;
+&lt;/div&gt;
+					</code></pre>
+					<pre class="fragment"><code data-trim contenteditable  style="font-size: 150%; line-height: 2;">
+
+a { color: yellow; }
+#a_id { color: brown; }
+.a_class { color: red; }
+[href="google.com"] { color: blue; }
+div a { color: green; }
+div a#a_id.a_class { color: white; }
+					</code></pre>
+					</section>
+					<section>
+						<p class="fragment" style="text-align: left;">确定优先级</p>
+						<ol>
+							<li class="fragment">谁写的样式？</li>
+							<li class="fragment">样式来自哪个选择器？</li>
+							<li class="fragment">样式出现的先后顺序？</li>
+						</ol>
+					</section>
+					<section>
+						<p style="text-align: left;">谁写的样式？</p>
+						<ul>
+							<li class="fragment" style="color:#cc33cc">浏览器自定义的样式</li>
+							<li class="fragment" style="color:#cc3399">用户声明的“普通”样式</li>
+							<li class="fragment" style="color:#cc3366">程序员声明的“普通”样式</li>
+							<li class="fragment" style="color:#cc3333">用户声明的带 !important 的样式</li>
+							<li class="fragment" style="color:#cc3300">程序员声明的带 !important 的样式</li>
+						</ul>
+					</section>
+
+					<section>
+						<p style="text-align: left;">样式来自哪个选择器？</p>
+						<p class="fragment" style="color: #ff0099;">4位十进制数表示法</p>
+						<ul>
+							<li class="fragment">如果样式通过 style 属性声明，标记千位为1</li>
+							<li class="fragment">计算样式选择器中 ID 选择器的数量，标记在百位</li>
+							<li class="fragment">计算样式选择器中 类、伪类、属性 选择器的数量，标记在十位</li>
+							<li class="fragment">计算样式选择器中 元素、伪元素 选择器的数量，标记在个位</li>
+						</ul>
+					</section>
+
+					<section>
+						<p  style="text-align: left;">练习一下</p>
+						<pre class="fragment"><code data-trim contenteditable>
+&lt;div&gt;
+&lt;a id="a_id" class="a_class" href="google.com"&gt;红色&lt;/a&gt;
+&lt;/div&gt;
+					</code></pre>
+						<pre class="fragment"><code data-trim contenteditable style="font-size: 150%; line-height: 2;">
+
+a { color: yellow; }
+#a_id { color: brown; }
+.a_class { color: red; }
+[href="google.com"] { color: blue; }
+div a { color: green; }
+div a#a_id.a_class { color: white; }
+					</code></pre>
+					</section>
+
+					<section>
+						<p style="text-align: left;">样式出现的先后顺序？</p>
+						<p class="fragment" style="color: #ff0099;">后者覆盖前者</p>
+					</section>
+
+				</section>
+
+				<section>
+					<h2>如何解决冲突？</h2>
+					<p class="fragment" style="text-align: left;">提高自己的优先级</p>
+					<p class="fragment" style="text-align: left;">降低别人的优先级</p>
+
+				</section>
+
+				<section>
+					<h2>实战中遇到问题？</h2>
+					<section>
+						<p style="text-align: left;" class="fragment">浏览器支持这样写吗？</p>
+						<ul>
+							<li class="fragment"><a href="http://caniuse.com/" target="_blank">caniuse</a></li>
+						</ul>
+					</section>
+					<section>
+						<p style="text-align: left;">怎样写选择器？</p>
+						<ol>
+							<li class="fragment">尽量少用ID选择器，多用class选择器</li>
+							<li class="fragment">不要用太多，控制在3个以内</li>
+							<li class="fragment">合适的优先级，越通用的样式优先级越低</li>
+						</ol>
+					</section>
+					<section>
+						<p style="text-align: left;">写CSS好人肉，心好累？</p>
+						<ol>
+							<li class="fragment">到处是 magic number</li>
+							<li class="fragment">很多重复代码</li>
+						</ol>
+					</section>
+					<section>
+						<p>学学<a href="http://www.w3cplus.com/sassguide/syntax.html" target="_blank">SASS</a>吧</p>
+					</section>
+				</section>
+
+				
+
+				</section>
+
+				
+				<section style="text-align: left;">
+					<h1>Q & A</h1>
+				</section>
+
+				<section style="text-align: left;">
+					<h2>References</h2>
+					<ul>
+						<li><a href="http://lab.hakim.se/reveal-js/#/">这个幻灯片是怎样做出来的？</a></li>
+						<li><a href="http://judes.me/2015/09/13/style-sheet-cascade-order/">CSS 样式应用优先级</a></li>
+						<li><a href="http://zhibimo.com/read/Ashu/front-end-style-guide/css/general.html">CSS通用约定</a></li>
+						<li><a href="http://www.w3cplus.com/sassguide/syntax.html">sass语法</a></li>
+					</ul>
+				</section>
+
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
